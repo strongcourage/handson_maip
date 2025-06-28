@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM python:3.10
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -6,7 +6,13 @@ RUN apt-get update && apt-get install -y \
     curl \
     sudo \
     dpkg \
-    && rm -rf /var/lib/apt/lists/*
+    libxml2-dev \
+    libpcap-dev \
+    libconfuse-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Workaround: Bypass post-install errors in .deb packages
+RUN printf '#!/bin/sh\nexit 0\n' > /usr/bin/systemctl && chmod +x /usr/bin/systemctl
 
 # Set workdir
 WORKDIR /app
@@ -15,7 +21,7 @@ WORKDIR /app
 COPY . /app
 
 # Install Python dependencies
-RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
 # Install MMT tools using deb packages
 RUN sudo dpkg -i mmt-packages/mmt-dpi_1.7.4_c5a4a6b_Linux_x86_64.deb || true
