@@ -1,0 +1,13 @@
+{
+  "datasets": [
+    {"csvPath": "normal-traffic-reports/1751059131.587991_0_normal-traffic.pcap.csv", "isAttack": false},
+    {"csvPath": "bot-traffic-reports/1751059126.312772_0_bot-traffic.pcap.csv", "isAttack": true}
+  ],
+  "training_ratio": 0.8,
+  "training_parameters": {
+    "nb_epoch_cnn": 5,
+    "batch_size_cnn": 16,
+    "nb_epoch_sae": 2,
+    "batch_size_sae": 32
+  }
+}
