@@ -10,13 +10,10 @@ from collections import Counter
 from sklearn.metrics import confusion_matrix, accuracy_score
 from tensorflow.keras.models import load_model
 import tensorflow as tf
-import lightgbm as lgb
-import xgboost as xgb
 from sklearn.preprocessing import LabelEncoder
 from ctgan import CTGAN
 from ctgan import load_demo
 from tensorflow.keras.utils import to_categorical
-from utils import get_expected_input_features
 
 class ModelInference:
     """Generic class for model inference across different ML frameworks"""
